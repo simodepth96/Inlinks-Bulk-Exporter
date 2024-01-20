@@ -22,7 +22,7 @@ if file is not None:
     st.dataframe(df)
 
     # Define the status codes to filter out
-    status_codes_to_filter = [200, 204]
+    status_codes_to_filter = [0,200, 204]
 
     # Filter out rows with specified status codes
     filtered_df = df[~df.iloc[:, 6].isin(status_codes_to_filter)]
@@ -50,14 +50,14 @@ if file is not None:
     plt.ylabel('Number of URLs')
     plt.title('Number of URLs for Each Status Code')
     fig, ax = plt.subplots()
-    ax.bar([1,2,3],[1,2,3])
+    ax.bar([0,204,301, 302, 303, 304, 401, 403, 404, 500, 502, 503, 504],[0,204,301, 302, 303, 304, 401, 403, 404, 500, 502, 503, 504])
     st.pyplot(fig)
 
     # Display the table with filtered rows
-    st.write("Table containing Status Code that does not have 200 and 204:")
+    st.write("Table with Non-HTTP 2xx inlinks:")
     st.dataframe(filtered_df)
 
     # Download link for filtered table
     st.markdown("### Download Filtered Table")
-    st.markdown(f"Click the link below to download the table without Status Codes 200 and 204.")
+    st.markdown(f"Click the link below to download the table with Non-HTTP 2xx inlinks")
     st.markdown(f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{base64.b64encode(open(output_file_path, "rb").read()).decode()}" download="filtered_inlinks.xlsx">Download filtered_inlinks.xlsx</a>', unsafe_allow_html=True)
