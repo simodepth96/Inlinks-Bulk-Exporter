@@ -30,9 +30,6 @@ if file is not None:
     else:
         df = pd.read_csv(file)
 
-    # Display file content
-    st.dataframe(df)
-
     # Define the status codes to filter out
     status_codes_to_filter = [0,200, 204]
 
@@ -54,6 +51,7 @@ if file is not None:
 
     # Print out the counts
     for code, count in count_per_status_code.items():
+        st.write("##Number of internal links with Non-HTTP 2xx")
         st.write(f"Number of URLs with Status Code {code}: {count}")
 
     # Create a bar chart using Matplotlib
@@ -63,10 +61,11 @@ if file is not None:
     plt.title('Number of URLs for Each Status Code')
     fig, ax = plt.subplots()
     ax.bar([0,204,301, 302, 303, 304, 401, 403, 404, 500, 502, 503, 504],[0,204,301, 302, 303, 304, 401, 403, 404, 500, 502, 503, 504])
+    st.write("##Distribution of most common status codes")
     st.pyplot(fig)
 
     # Display the table with filtered rows
-    st.write("Table with Non-HTTP 2xx inlinks:")
+    st.write("##Table with Non-HTTP 2xx inlinks:")
     st.dataframe(filtered_df)
 
     # Download link for filtered table
