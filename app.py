@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
+import matplotlib.pyplot as plt
 import base64
 
 # Streamlit UI
@@ -33,7 +33,7 @@ if file is not None:
     # Save the filtered data to a new Excel file
     output_file_path = 'filtered_inlinks.xlsx'
     filtered_df.to_excel(output_file_path, index=False)
-    
+
     # Count URLs with specific status codes
     status_codes_to_count = [401, 404, 403, 500, 502, 503, 504, 204, 301, 302, 303, 304]
 
@@ -44,13 +44,12 @@ if file is not None:
     for code, count in count_per_status_code.items():
         st.write(f"Number of URLs with Status Code {code}: {count}")
 
-    # Create a bar chart using Plotly Express
-    fig = px.bar(x=list(count_per_status_code.keys()), y=list(count_per_status_code.values()),
-                 labels={'x': 'Status Code', 'y': 'Number of URLs'},
-                 title='Number of URLs for Each Status Code')
-
-    # Show the chart
-    st.plotly_chart(fig)
+    # Create a bar chart using Matplotlib
+    plt.bar(count_per_status_code.keys(), count_per_status_code.values())
+    plt.xlabel('Status Code')
+    plt.ylabel('Number of URLs')
+    plt.title('Number of URLs for Each Status Code')
+    st.pyplot()
 
     # Display the table with filtered rows
     st.write("Table containing Status Code that does not have 200 and 204:")
