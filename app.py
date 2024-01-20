@@ -10,13 +10,11 @@ This script filters out HTTP 2xx internal links from a bulk export performed via
 ### How to use? \n
 Screaming Frog > Bulk Exports > Links > All Inlinks\n
 Upload an XLSX/CSV file\n
-**Features**\n
-1.Filters out the rows with valid URLs (HTTP 2xx)\n
-2.Counts how many internal links with adverse status code (Non-HTTP 2xx)\n
-3.Plot a distribution of most common status codes\n
-4.Provide a cleaned table with broken internal links\n
-**Important**\n
-Streamlit might take 1 or 2 minutes to return an output due to the size of the files uploaded.
+### Features \n
+1. Filters out the rows with valid URLs (HTTP 2xx)\n
+2. Counts how many internal links with adverse status code (Non-HTTP 2xx)\n
+3. Plots a distribution of most common status codes\n
+4. Provides a cleaned table with broken internal links\n
 """)
 # File upload
 file = st.file_uploader("Upload XLSX or CSV file", type=["xlsx", "csv"])
