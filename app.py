@@ -50,7 +50,7 @@ if file is not None:
     plt.ylabel('Number of URLs')
     plt.title('Number of URLs for Each Status Code')
     fig, ax = plt.subplots()
-    ax.scatter([1,2,3],[1,2,3])
+    ax.bar([1,2,3],[1,2,3])
     st.pyplot(fig)
 
     # Display the table with filtered rows
