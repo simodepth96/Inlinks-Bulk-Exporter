@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import base64
 
 # Streamlit UI
 st.title("Export non-HTTP 2xx inlinks")
@@ -30,7 +31,8 @@ if file is not None:
     count_per_status_code = {code: len(df[df.iloc[:, 6] == code]) for code in status_codes_to_filter}
 
     # Save the filtered data to a new Excel file
-    filtered_df.to_excel('filtered_inlinks.xlsx', index=False)
+    output_file_path = 'filtered_inlinks.xlsx'
+    filtered_df.to_excel(output_file_path, index=False)
 
     # Print out the number of rows removed for each status code
     for code, count in count_per_status_code.items():
@@ -53,3 +55,12 @@ if file is not None:
 
     # Show the chart
     st.plotly_chart(fig)
+
+    # Display the table with filtered rows
+    st.write("Table containing Status Code that does not have 200 and 204:")
+    st.dataframe(filtered_df)
+
+    # Download link for filtered table
+    st.markdown("### Download Filtered Table")
+    st.markdown(f"Click the link below to download the table without Status Codes 200 and 204.")
+    st.markdown(f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{base64.b64encode(open(output_file_path, "rb").read()).decode()}" download="filtered_inlinks.xlsx">Download filtered_inlinks.xlsx</a>', unsafe_allow_html=True)
