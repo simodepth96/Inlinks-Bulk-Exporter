@@ -49,7 +49,9 @@ if file is not None:
     plt.xlabel('Status Code')
     plt.ylabel('Number of URLs')
     plt.title('Number of URLs for Each Status Code')
-    st.pyplot()
+    fig, ax = plt.subplots()
+    ax.scatter([1,2,3],[1,2,3])
+    st.pyplot(fig)
 
     # Display the table with filtered rows
     st.write("Table containing Status Code that does not have 200 and 204:")
