@@ -7,7 +7,7 @@ import base64
 st.title("Broken Inlinks Bulk Exporter")
 st.markdown("""
 This script filters out HTTP 2xx internal links from a bulk export performed via Screaming Frog following a website crawl.\n
-**How to use?**\n
+### How to use? \n
 Screaming Frog > Bulk Exports > Links > All Inlinks\n
 Upload an XLSX/CSV file\n
 **Features**\n
