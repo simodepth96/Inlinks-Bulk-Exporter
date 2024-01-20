@@ -14,3 +14,6 @@ Avoid annoying and lengthy data cleaning from large datasets.
 2. Counts how many internal links with adverse status code (Non-HTTP 2xx)
 3. Plot a distribution of most common status codes
 4. Provide a cleaned table with broken internal links 
+
+
+Find more at my <a href="https://seodepths.com/tools-for-seo/" target="_blank" rel="noopener">SEO Toolstation</a>
