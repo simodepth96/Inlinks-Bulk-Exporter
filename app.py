@@ -4,8 +4,20 @@ import matplotlib.pyplot as plt
 import base64
 
 # Streamlit UI
-st.title("Export non-HTTP 2xx inlinks")
-
+st.title("Broken Inlinks Bulk Exporter")
+st.markdown("""
+This script filters out HTTP 2xx internal links from a bulk export performed via Screaming Frog following a website crawl.\n
+**How to use?**\n
+Screaming Frog > Bulk Exports > Links > All Inlinks\n
+Upload an XLSX/CSV file\n
+**Features**\n
+1.Filters out the rows with valid URLs (HTTP 2xx)\n
+2.Counts how many internal links with adverse status code (Non-HTTP 2xx)\n
+3.Plot a distribution of most common status codes\n
+4.Provide a cleaned table with broken internal links\n
+**Important**\n
+Streamlit might take 1 or 2 minutes to return an output due to the size of the files uploaded.
+""")
 # File upload
 file = st.file_uploader("Upload XLSX or CSV file", type=["xlsx", "csv"])
 
@@ -35,7 +47,7 @@ if file is not None:
     filtered_df.to_excel(output_file_path, index=False)
 
     # Count URLs with specific status codes
-    status_codes_to_count = [401, 404, 403, 500, 502, 503, 504, 204, 301, 302, 303, 304]
+    status_codes_to_count = [0,401, 404, 403, 500, 502, 503, 504, 204, 301, 302, 303, 304]
 
     # Create a dictionary to store counts for each status code
     count_per_status_code = {code: len(filtered_df[filtered_df.iloc[:, 6] == code]) for code in status_codes_to_count}
