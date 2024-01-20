@@ -33,11 +33,7 @@ if file is not None:
     # Save the filtered data to a new Excel file
     output_file_path = 'filtered_inlinks.xlsx'
     filtered_df.to_excel(output_file_path, index=False)
-
-    # Print out the number of rows removed for each status code
-    for code, count in count_per_status_code.items():
-        st.write(f"Number of rows removed with Status Code {code}: {count}")
-
+    
     # Count URLs with specific status codes
     status_codes_to_count = [401, 404, 403, 500, 502, 503, 504, 204, 301, 302, 303, 304]
 
