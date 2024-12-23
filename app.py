@@ -28,7 +28,7 @@ st.sidebar.markdown(
     )
 
 # File upload
-file = st.file_uploader("Upload XLSX or CSV file", type=["xlsx", "csv"])
+file = st.file_uploader("Upload XLSX or CSV file with the Screaming Frog export file", type=["xlsx", "csv"])
 
 if file is not None:
     st.write("File Uploaded Successfully!")
