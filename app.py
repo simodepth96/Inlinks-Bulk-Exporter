@@ -16,7 +16,7 @@ st.sidebar.markdown(
     )
 # Use cases - subheader
 st.sidebar.subheader(
-        "🎯 Casi d'Uso"
+        "🎯 Features"
     )
 st.sidebar.markdown(
     """
