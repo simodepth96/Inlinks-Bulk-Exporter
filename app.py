@@ -5,17 +5,28 @@ import base64
 
 # Streamlit UI
 st.title("Broken Inlinks Bulk Exporter")
-st.markdown("""
-This script filters out HTTP 2xx internal links from a bulk export performed via Screaming Frog following a website crawl.\n
-### How to use? \n
-Screaming Frog > Bulk Exports > Links > All Inlinks\n
-Upload an XLSX/CSV file\n
-### Features \n
+
+# Sidebar
+st.sidebar.header("🔧 How to use?")
+st.sidebar.markdown(
+    """
+    - Screaming Frog > Bulk Exports > Links > All Inlinks
+    - Upload an XLSX/CSV file.
+    """
+    )
+# Use cases - subheader
+st.sidebar.subheader(
+        "🎯 Casi d'Uso"
+    )
+st.sidebar.markdown(
+    """
 1. Filters out the rows with valid URLs (HTTP 2xx)\n
 2. Counts how many internal links with adverse status code (Non-HTTP 2xx)\n
 3. Plots a distribution of most common status codes\n
 4. Provides a cleaned table with broken internal links\n
-""")
+"""
+    )
+
 # File upload
 file = st.file_uploader("Upload XLSX or CSV file", type=["xlsx", "csv"])
 
