@@ -26,13 +26,18 @@ st.sidebar.markdown(
 4. Provides a cleaned table with broken internal links\n
 """
     )
-# Function to process the uploaded file
-def process_file(file_path, output_file_path='filtered_inlinks.xlsx'):
+
+# File upload
+file = st.file_uploader("Upload XLSX or CSV file with the Screaming Frog export file", type=["xlsx", "csv"])
+
+if file is not None:
+    st.write("File Uploaded Successfully!")
+
     # Read the file content
-    if file_path.endswith('.xlsx'):
-        df = pd.read_excel(file_path)
+    if file.name.endswith('.xlsx'):
+        df = pd.read_excel(file)
     else:
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file)
 
     # Define the status codes to filter out
     status_codes_to_filter = [0, 200, 204]
@@ -40,7 +45,11 @@ def process_file(file_path, output_file_path='filtered_inlinks.xlsx'):
     # Filter out rows with specified status codes
     filtered_df = df[~df.iloc[:, 6].isin(status_codes_to_filter)]
 
+    # Count the number of rows with specific status codes that are being removed
+    count_per_status_code = {code: len(df[df.iloc[:, 6] == code]) for code in status_codes_to_filter}
+
     # Save the filtered data to a new Excel file
+    output_file_path = 'filtered_inlinks.xlsx'
     filtered_df.to_excel(output_file_path, index=False)
 
     # Count URLs with specific status codes
@@ -49,44 +58,25 @@ def process_file(file_path, output_file_path='filtered_inlinks.xlsx'):
     # Create a dictionary to store counts for each status code
     count_per_status_code = {code: len(filtered_df[filtered_df.iloc[:, 6] == code]) for code in status_codes_to_count}
 
-    return filtered_df, count_per_status_code
+    st.markdown("## Number of internal links with Non-HTTP 2xx")
 
-# Function to create a bar chart
-def create_bar_chart(count_per_status_code):
+    # Print out the counts
+    for code, count in count_per_status_code.items():
+        st.write(f"Number of URLs with Status Code {code}: {count}")
+
+    # Create a bar chart using Matplotlib
     plt.bar(count_per_status_code.keys(), count_per_status_code.values())
     plt.xlabel('Status Code')
     plt.ylabel('Number of URLs')
     plt.title('Number of URLs for Each Status Code')
-    plt.show()
+    st.write("## Distribution of most common status codes")
+    st.pyplot(fig)
 
-# Function to generate download link
-def generate_download_link(file_path):
-    with open(file_path, 'rb') as file:
-        b64 = base64.b64encode(file.read()).decode()
-    return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="filtered_inlinks.xlsx">Download filtered_inlinks.xlsx</a>'
+    # Display the table with filtered rows
+    st.write("## Table with Non-HTTP 2xx inlinks:")
+    st.dataframe(filtered_df)
 
-# Main execution block
-if __name__ == "__main__":
-    # Input file path
-    input_file_path = input("Enter the path to your file (CSV or XLSX): ")
-    output_file_path = 'filtered_inlinks.xlsx'
-
-    # Process the file
-    filtered_df, count_per_status_code = process_file(input_file_path, output_file_path)
-
-    # Print status code counts
-    print("Number of internal links with Non-HTTP 2xx:")
-    for code, count in count_per_status_code.items():
-        print(f"Number of URLs with Status Code {code}: {count}")
-
-    # Generate and display bar chart
-    create_bar_chart(count_per_status_code)
-
-    # Display filtered rows
-    print("Filtered rows with Non-HTTP 2xx:")
-    print(filtered_df.head())
-
-    # Generate download link
-    download_link = generate_download_link(output_file_path)
-    print("Download link for filtered table:")
-    print(download_link)
+    # Download link for filtered table
+    st.markdown("### Download Filtered Table")
+    st.markdown(f"Click the link below to download the table with Non-HTTP 2xx inlinks")
+    st.markdown(f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{base64.b64encode(open(output_file_path, "rb").read()).decode()}" download="filtered_inlinks.xlsx">Download filtered_inlinks.xlsx</a>', unsafe_allow_html=True)
