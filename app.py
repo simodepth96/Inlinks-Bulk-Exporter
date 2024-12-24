@@ -68,10 +68,9 @@ if file is not None:
         ax.bar(count_per_status_code.keys(), count_per_status_code.values())
         ax.set_xlabel('Status Code')
         ax.set_ylabel('Number of URLs')
-        ax.set_title('Number of URLs for Each Status Code')
 
     # Display the chart in Streamlit
-    st.write("## Distribution of most common status codes")
+    st.write("## Distribution of Non-Valid Status Codes")
     st.pyplot(fig)
 
     # Display the table with filtered rows
