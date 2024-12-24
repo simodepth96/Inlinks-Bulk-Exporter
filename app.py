@@ -40,7 +40,7 @@ if file is not None:
         df = pd.read_csv(file)
 
     # Define the status codes to filter out
-    status_codes_to_filter = [0,200, 204]
+    status_codes_to_filter = [0, 200, 204]
 
     # Filter out rows with specified status codes
     filtered_df = df[~df.iloc[:, 6].isin(status_codes_to_filter)]
@@ -53,7 +53,7 @@ if file is not None:
     filtered_df.to_excel(output_file_path, index=False)
 
     # Count URLs with specific status codes
-    status_codes_to_count = [0,401, 404, 403, 500, 502, 503, 504, 204, 301, 302, 303, 304]
+    status_codes_to_count = [0, 401, 404, 403, 500, 502, 503, 504, 204, 301, 302, 303, 304]
 
     # Create a dictionary to store counts for each status code
     count_per_status_code = {code: len(filtered_df[filtered_df.iloc[:, 6] == code]) for code in status_codes_to_count}
