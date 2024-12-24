@@ -63,17 +63,16 @@ if file is not None:
     # Print out the counts
     for code, count in count_per_status_code.items():
         st.write(f"Number of URLs with Status Code {code}: {count}")
+        
+        fig, ax = plt.subplots()
+        ax.bar(count_per_status_code.keys(), count_per_status_code.values())
+        ax.set_xlabel('Status Code')
+        ax.set_ylabel('Number of URLs')
+        ax.set_title('Number of URLs for Each Status Code')
 
-# Create a bar chart using Matplotlib
-fig, ax = plt.subplots()
-ax.bar(count_per_status_code.keys(), count_per_status_code.values())
-ax.set_xlabel('Status Code')
-ax.set_ylabel('Number of URLs')
-ax.set_title('Number of URLs for Each Status Code')
-
-# Display the chart in Streamlit
-st.write("## Distribution of most common status codes")
-st.pyplot(fig)
+    # Display the chart in Streamlit
+    st.write("## Distribution of most common status codes")
+    st.pyplot(fig)
 
     # Display the table with filtered rows
     st.write("## Table with Non-HTTP 2xx inlinks:")
