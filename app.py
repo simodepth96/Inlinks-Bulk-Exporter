@@ -69,8 +69,6 @@ if file is not None:
     plt.xlabel('Status Code')
     plt.ylabel('Number of URLs')
     plt.title('Number of URLs for Each Status Code')
-    fig, ax = plt.subplots()
-    ax.bar([0,204,301, 302, 303, 304, 401, 403, 404, 500, 502, 503, 504],[0,204,301, 302, 303, 304, 401, 403, 404, 500, 502, 503, 504])
     st.write("## Distribution of most common status codes")
     st.pyplot(fig)
 
