@@ -2,6 +2,29 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import base64
 
+# Streamlit UI
+st.title("Broken Inlinks Bulk Exporter")
+
+# Sidebar
+st.sidebar.header("🔧 How to use?")
+st.sidebar.markdown(
+    """
+    - Screaming Frog > Bulk Exports > Links > All Inlinks
+    - Upload an XLSX/CSV file.
+    """
+    )
+# Use cases - subheader
+st.sidebar.subheader(
+        "🎯 Features"
+    )
+st.sidebar.markdown(
+    """
+1. Filters out the rows with valid URLs (HTTP 2xx)\n
+2. Counts how many internal links with adverse status code (Non-HTTP 2xx)\n
+3. Plots a distribution of most common status codes\n
+4. Provides a cleaned table with broken internal links\n
+"""
+    )
 # Function to process the uploaded file
 def process_file(file_path, output_file_path='filtered_inlinks.xlsx'):
     # Read the file content
